@@ -1,7 +1,9 @@
 // Health OS PWA - Main App Logic
 (function() {
   'use strict';
-
+  
+  localStorage.clear();  // Clear stale cache before ANY async work
+  
   // Configuration
   const CONFIG = {
     privateRepo: 'RohitKankhedia/rohit-health-os',
@@ -24,6 +26,13 @@
 
   // Cache buster to force fresh fetches (bypasses localStorage cache)
   const CACHE_BUSTER = '?v=' + Date.now();
+
+  // Force SW update on load
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(regs => {
+      regs.forEach(r => r.unregister());
+    });
+  }
 
   // State
   let state = {
@@ -271,7 +280,8 @@
 
   function renderTodayWorkout() {
     if (!state.schedule) {
-      els.todayWorkout.innerHTML = '<div class="loading">No schedule data</div>';
+      // Debug: show fetch status instead of generic loading
+      els.todayWorkout.innerHTML = '<div class="loading">Loading schedule... (check console for [Fetch] logs)</div>';
       return;
     }
 
