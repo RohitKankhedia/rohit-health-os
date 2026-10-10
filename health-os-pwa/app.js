@@ -22,6 +22,9 @@
     }
   };
 
+  // Cache buster to force fresh fetches (bypasses localStorage cache)
+  const CACHE_BUSTER = '?v=' + Date.now();
+
   // State
   let state = {
     schedule: null,
@@ -120,6 +123,7 @@
 
   // Initialize
   async function init() {
+    localStorage.clear();  // Force fresh fetch since data is now available
     setupEventListeners();
     updateDate();
     await loadAllData();
@@ -172,23 +176,33 @@
   }
 
   async function fetchWithCache(key, url, cacheTime = 5 * 60 * 1000) {
-    // Try cache first
+    // Add cache buster to URL to bypass localStorage cache
+    const bustedUrl = url + CACHE_BUSTER;
+    
+    // Try cache first (but don't use if data is null)
     const cached = localStorage.getItem(key);
     if (cached) {
       const { data, timestamp } = JSON.parse(cached);
-      if (Date.now() - timestamp < cacheTime) {
+      if (Date.now() - timestamp < cacheTime && data !== null) {
+        console.log(`[Cache HIT] ${key}: using cached data`);
         return data;
       }
     }
-    // Fetch fresh
+    // Fetch fresh with cache buster
     try {
-      const response = await fetch(url);
+      console.log(`[Fetch] ${key}: ${bustedUrl}`);
+      const response = await fetch(bustedUrl);
+      console.log(`[Fetch] ${key}: status ${response.status}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
-      localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }));
+      console.log(`[Fetch] ${key}: data received`, data ? 'OK' : 'NULL');
+      // Only cache non-null data
+      if (data !== null) {
+        localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }));
+      }
       return data;
     } catch (err) {
-      console.warn(`Fetch failed for ${url}:`, err);
+      console.warn(`[Fetch ERROR] ${key}:`, err);
       if (cached) return JSON.parse(cached).data;
       return null;
     }
