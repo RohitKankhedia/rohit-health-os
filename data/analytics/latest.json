@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-10-10T10:41:03.992165Z",
+  "fitness": {},
+  "youtube": {
+    "subscribers": 96,
+    "total_views": 12450,
+    "total_videos": 92,
+    "note": "Set YT_API_KEY secret for live data"
+  },
+  "linkedin": {
+    "followers": 1240,
+    "post_impressions_7d": 3420,
+    "engagement_rate": 4.2,
+    "note": "Configure via manual update or LinkedIn API"
+  },
+  "website": {
+    "visitors_7d": 340,
+    "contact_form_submissions": 3
+  }
+}

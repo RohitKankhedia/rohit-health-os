@@ -1,0 +1,116 @@
+{
+  "generated_at": "2026-10-10T10:41:03.714347Z",
+  "valid_until": "2026-10-17T10:41:03.714351Z",
+  "split": "PPL_PPL_rest",
+  "days": {
+    "monday": {
+      "focus": "push",
+      "exercises": [
+        "incline_dumbbell_press",
+        "flat_dumbbell_press",
+        "flat_barbell_press",
+        "decline_dumbbell_press",
+        "pushup"
+      ],
+      "target_muscles": [
+        "chest",
+        "front_delt",
+        "triceps",
+        "side_delt"
+      ]
+    },
+    "tuesday": {
+      "focus": "pull",
+      "exercises": [
+        "lateral_raise",
+        "rear_delt_fly",
+        "face_pull",
+        "pullup",
+        "chinup"
+      ],
+      "target_muscles": [
+        "lats",
+        "upper_back",
+        "rear_delt",
+        "biceps"
+      ]
+    },
+    "wednesday": {
+      "focus": "legs_hip",
+      "exercises": [
+        "hip_thrust",
+        "rdl",
+        "single_leg_rdl",
+        "glute_bridge",
+        "cable_pull_through"
+      ],
+      "target_muscles": [
+        "glutes",
+        "hamstrings",
+        "calves",
+        "abs"
+      ]
+    },
+    "thursday": {
+      "focus": "push",
+      "exercises": [
+        "incline_dumbbell_press",
+        "flat_dumbbell_press",
+        "flat_barbell_press",
+        "decline_dumbbell_press",
+        "pushup"
+      ],
+      "target_muscles": [
+        "upper_chest",
+        "front_delt",
+        "triceps",
+        "side_delt"
+      ]
+    },
+    "friday": {
+      "focus": "pull",
+      "exercises": [
+        "lateral_raise",
+        "rear_delt_fly",
+        "face_pull",
+        "pullup",
+        "chinup"
+      ],
+      "target_muscles": [
+        "lats",
+        "upper_back",
+        "rear_delt",
+        "biceps"
+      ]
+    },
+    "saturday": {
+      "focus": "legs_knee_friendly",
+      "exercises": [
+        "hip_thrust",
+        "rdl",
+        "single_leg_rdl",
+        "glute_bridge",
+        "cable_pull_through"
+      ],
+      "target_muscles": [
+        "glutes",
+        "hamstrings",
+        "calves",
+        "abs"
+      ]
+    },
+    "sunday": {
+      "focus": "rest",
+      "exercises": [
+        "mobility",
+        "walking",
+        "meditation"
+      ]
+    }
+  },
+  "notes": [
+    "\u26a0\ufe0f Patellofemoral Pain Syndrome (mild, right knee)",
+    "\ud83d\udeab Avoid: deep_squats, lunges, leg_press_heavy, box_jumps, running_downhill, knee_extension_machine",
+    "\u2705 Leg days: hip-dominant focus, limited knee flexion"
+  ]
+}
