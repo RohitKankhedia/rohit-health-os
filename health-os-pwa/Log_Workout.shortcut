@@ -1,0 +1,394 @@
+{
+  "actions": [
+    {
+      "actionIdentifier": "is.workflow.actions.choosefrommenu",
+      "parameters": {
+        "WFAskEachTime": false,
+        "WFMenuPrompt": "Select Workout Type",
+        "WFMenuItems": ["Push", "Pull", "Legs (Hip)", "Legs (Knee-Friendly)", "Cardio", "Rest"],
+        "WFMultipleSelection": false
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "workoutType",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.date",
+      "parameters": {
+        "WFDateFormat": "YYYY-MM-DD",
+        "WFDateType": "today"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "workoutDate",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Number",
+        "WFPrompt": "Session Duration (minutes)",
+        "WFDefaultValue": "75"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "duration",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Number",
+        "WFPrompt": "Overall RPE (1-10)",
+        "WFDefaultValue": "8"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "overallRPE",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.choosefrommenu",
+      "parameters": {
+        "WFAskEachTime": false,
+        "WFMenuPrompt": "How many exercises?",
+        "WFMenuItems": ["1", "2", "3", "4", "5", "6"],
+        "WFMultipleSelection": false
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "exerciseCount",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.repeat",
+      "parameters": {
+        "WFRepeatCount": "Variable",
+        "WFRepeatVariableName": "exerciseCount"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Text",
+        "WFPrompt": "Exercise Name (e.g., incline_dumbbell_press)",
+        "WFDefaultValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "exerciseName",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Number",
+        "WFPrompt": "Number of Sets",
+        "WFDefaultValue": "3"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "setCount",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.repeat",
+      "parameters": {
+        "WFRepeatCount": "Variable",
+        "WFRepeatVariableName": "setCount"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Number",
+        "WFPrompt": "Set {{RepeatIndex}} - Reps",
+        "WFDefaultValue": "10"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "reps",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Number",
+        "WFPrompt": "Set {{RepeatIndex}} - Weight (kg)",
+        "WFDefaultValue": "20"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "weight",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Number",
+        "WFPrompt": "Set {{RepeatIndex}} - RPE (1-10)",
+        "WFDefaultValue": "8"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "rpe",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Number",
+        "WFPrompt": "Set {{RepeatIndex}} - Rest (seconds)",
+        "WFDefaultValue": "120"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "rest",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.getdictionaryvalue",
+      "parameters": {
+        "WFDictionaryKey": "sets",
+        "WFDictionary": "Variable",
+        "WFDictionaryVariableName": "exerciseData"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.appendvariable",
+      "parameters": {
+        "WFVariableName": "exerciseData.sets",
+        "WFVariableValue": {
+          "set": "Variable",
+          "WFVariableName": "RepeatIndex",
+          "reps": "Variable",
+          "WFVariableName": "reps",
+          "weight_kg": "Variable",
+          "WFVariableName": "weight",
+          "rpe": "Variable",
+          "WFVariableName": "rpe",
+          "rest_sec": "Variable",
+          "WFVariableName": "rest"
+        }
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.endrepeat"
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setdictionaryvalue",
+      "parameters": {
+        "WFDictionaryKey": "exercises",
+        "WFDictionary": "Variable",
+        "WFDictionaryVariableName": "workoutData",
+        "WFDictionaryValue": "Variable",
+        "WFVariableName": "exerciseData"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.endrepeat"
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Boolean",
+        "WFPrompt": "Add Cardio?",
+        "WFDefaultValue": false
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.if",
+      "parameters": {
+        "WFCondition": "Variable",
+        "WFVariableName": "Cardio",
+        "WFConditionType": "IsTrue"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.choosefrommenu",
+      "parameters": {
+        "WFAskEachTime": false,
+        "WFMenuPrompt": "Cardio Type",
+        "WFMenuItems": ["Running", "Cycling", "Walking"],
+        "WFMultipleSelection": false
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "cardioType",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Number",
+        "WFPrompt": "Distance (km)",
+        "WFDefaultValue": "5"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "cardioDistance",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.askforinput",
+      "parameters": {
+        "WFAskEachTime": true,
+        "WFInputType": "Number",
+        "WFPrompt": "Duration (minutes)",
+        "WFDefaultValue": "30"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setvariable",
+      "parameters": {
+        "WFVariableName": "cardioDuration",
+        "WFVariableValue": ""
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setdictionaryvalue",
+      "parameters": {
+        "WFDictionaryKey": "cardio",
+        "WFDictionary": "Variable",
+        "WFDictionaryVariableName": "workoutData",
+        "WFDictionaryValue": {
+          "type": "Variable",
+          "WFVariableName": "cardioType",
+          "distance_km": "Variable",
+          "WFVariableName": "cardioDistance",
+          "duration_min": "Variable",
+          "WFVariableName": "cardioDuration"
+        }
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.endif"
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setdictionaryvalue",
+      "parameters": {
+        "WFDictionaryKey": "date",
+        "WFDictionary": "Variable",
+        "WFDictionaryVariableName": "workoutData",
+        "WFDictionaryValue": "Variable",
+        "WFVariableName": "workoutDate"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setdictionaryvalue",
+      "parameters": {
+        "WFDictionaryKey": "day_of_week",
+        "WFDictionary": "Variable",
+        "WFDictionaryVariableName": "workoutData",
+        "WFDictionaryValue": "Variable",
+        "WFVariableName": "workoutType"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setdictionaryvalue",
+      "parameters": {
+        "WFDictionaryKey": "duration_min",
+        "WFDictionary": "Variable",
+        "WFDictionaryVariableName": "workoutData",
+        "WFDictionaryValue": "Variable",
+        "WFVariableName": "duration"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setdictionaryvalue",
+      "parameters": {
+        "WFDictionaryKey": "rpe_overall",
+        "WFDictionary": "Variable",
+        "WFDictionaryVariableName": "workoutData",
+        "WFDictionaryValue": "Variable",
+        "WFVariableName": "overallRPE"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.setdictionaryvalue",
+      "parameters": {
+        "WFDictionaryKey": "completed",
+        "WFDictionary": "Variable",
+        "WFDictionaryVariableName": "workoutData",
+        "WFDictionaryValue": true
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.getcontentsofurl",
+      "parameters": {
+        "WFURL": "https://api.github.com/repos/RohitKankhedia/rohit-health-os/contents/data/workouts/{{workoutDate}}.json",
+        "WFHTTPMethod": "PUT",
+        "WFHeaders": {
+          "Authorization": "Bearer YOUR_PRIVATE_PAT_HERE",
+          "Accept": "application/vnd.github.v3+json",
+          "Content-Type": "application/json"
+        },
+        "WFRequestBody": {
+          "message": "🏋️ Workout: {{workoutType}} - {{workoutDate}}",
+          "content": "Base64EncodedJSON",
+          "branch": "main"
+        },
+        "WFRequestBodyType": "JSON"
+      }
+    },
+    {
+      "actionIdentifier": "is.workflow.actions.showresult",
+      "parameters": {
+        "WFResult": "✅ Workout logged & synced to GitHub!"
+      }
+    }
+  ],
+  "name": "Log Workout",
+  "shortcutDescription": "Log daily workout and sync to GitHub",
+  "version": "1.0"
+}

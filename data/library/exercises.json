@@ -1,0 +1,622 @@
+{
+  "incline_dumbbell_press": {
+    "name": "Incline Dumbbell Press",
+    "category": "push",
+    "primary_muscle": "upper_chest",
+    "secondary_muscles": ["front_delt", "triceps"],
+    "equipment": ["dumbbells", "incline_bench"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "intermediate",
+    "instructions": "Bench at 30-45°. Lower to upper chest, press up.",
+    "common_mistakes": ["flaring elbows", "bouncing", "incomplete ROM"]
+  },
+  "flat_dumbbell_press": {
+    "name": "Flat Dumbbell Press",
+    "category": "push",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["front_delt", "triceps"],
+    "equipment": ["dumbbells", "flat_bench"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "beginner",
+    "instructions": "Lower to mid-chest, press up with control."
+  },
+  "flat_barbell_press": {
+    "name": "Flat Barbell Bench Press",
+    "category": "push",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["front_delt", "triceps"],
+    "equipment": ["barbell", "flat_bench"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "decline_dumbbell_press": {
+    "name": "Decline Dumbbell Press",
+    "category": "push",
+    "primary_muscle": "lower_chest",
+    "secondary_muscles": ["front_delt", "triceps"],
+    "equipment": ["dumbbells", "decline_bench"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "pushup": {
+    "name": "Push-up",
+    "category": "push",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["front_delt", "triceps", "core"],
+    "equipment": ["bodyweight"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "diamond_pushup": {
+    "name": "Diamond Push-up",
+    "category": "push",
+    "primary_muscle": "triceps",
+    "secondary_muscles": ["chest", "front_delt"],
+    "equipment": ["bodyweight"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "incline_pushup": {
+    "name": "Incline Push-up",
+    "category": "push",
+    "primary_muscle": "lower_chest",
+    "secondary_muscles": ["front_delt", "triceps"],
+    "equipment": ["elevated_surface"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "decline_pushup": {
+    "name": "Decline Push-up",
+    "category": "push",
+    "primary_muscle": "upper_chest",
+    "secondary_muscles": ["front_delt", "triceps"],
+    "equipment": ["elevated_feet"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "dumbbell_fly": {
+    "name": "Dumbbell Fly",
+    "category": "push",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["front_delt"],
+    "equipment": ["dumbbells", "flat_bench"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "incline_dumbbell_fly": {
+    "name": "Incline Dumbbell Fly",
+    "category": "push",
+    "primary_muscle": "upper_chest",
+    "secondary_muscles": ["front_delt"],
+    "equipment": ["dumbbells", "incline_bench"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "cable_fly": {
+    "name": "Cable Fly",
+    "category": "push",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["front_delt"],
+    "equipment": ["cable_machine"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "machine_chest_press": {
+    "name": "Machine Chest Press",
+    "category": "push",
+    "primary_muscle": "chest",
+    "secondary_muscles": ["front_delt", "triceps"],
+    "equipment": ["chest_press_machine"],
+    "movement_pattern": "horizontal_push",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "overhead_dumbbell_press": {
+    "name": "Overhead Dumbbell Press",
+    "category": "push",
+    "primary_muscle": "front_delt",
+    "secondary_muscles": ["side_delt", "triceps", "upper_chest"],
+    "equipment": ["dumbbells"],
+    "movement_pattern": "vertical_push",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "overhead_barbell_press": {
+    "name": "Overhead Barbell Press",
+    "category": "push",
+    "primary_muscle": "front_delt",
+    "secondary_muscles": ["side_delt", "triceps", "upper_chest"],
+    "equipment": ["barbell"],
+    "movement_pattern": "vertical_push",
+    "knee_friendly": true,
+    "difficulty": "advanced"
+  },
+  "arnold_press": {
+    "name": "Arnold Press",
+    "category": "push",
+    "primary_muscle": "front_delt",
+    "secondary_muscles": ["side_delt", "triceps"],
+    "equipment": ["dumbbells"],
+    "movement_pattern": "vertical_push",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "lateral_raise": {
+    "name": "Lateral Raise",
+    "category": "push",
+    "primary_muscle": "side_delt",
+    "secondary_muscles": ["front_delt", "rear_delt"],
+    "equipment": ["dumbbells", "cable_machine"],
+    "movement_pattern": "vertical_push",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "front_raise": {
+    "name": "Front Raise",
+    "category": "push",
+    "primary_muscle": "front_delt",
+    "secondary_muscles": ["side_delt"],
+    "equipment": ["dumbbells", "cable_machine", "plate"],
+    "movement_pattern": "vertical_push",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "rear_delt_fly": {
+    "name": "Rear Delt Fly",
+    "category": "pull",
+    "primary_muscle": "rear_delt",
+    "secondary_muscles": ["upper_back", "rhomboids"],
+    "equipment": ["dumbbells", "cable_machine", "machine"],
+    "movement_pattern": "horizontal_pull",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "face_pull": {
+    "name": "Face Pull",
+    "category": "pull",
+    "primary_muscle": "rear_delt",
+    "secondary_muscles": ["upper_back", "rhomboids", "external_rotators"],
+    "equipment": ["cable_machine", "band"],
+    "movement_pattern": "horizontal_pull",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "pullup": {
+    "name": "Pull-up",
+    "category": "pull",
+    "primary_muscle": "lats",
+    "secondary_muscles": ["biceps", "upper_back", "rear_delt"],
+    "equipment": ["pullup_bar"],
+    "movement_pattern": "vertical_pull",
+    "knee_friendly": true,
+    "difficulty": "advanced"
+  },
+  "chinup": {
+    "name": "Chin-up",
+    "category": "pull",
+    "primary_muscle": "lats",
+    "secondary_muscles": ["biceps", "upper_back"],
+    "equipment": ["pullup_bar"],
+    "movement_pattern": "vertical_pull",
+    "knee_friendly": true,
+    "difficulty": "advanced"
+  },
+  "lat_pulldown": {
+    "name": "Lat Pulldown",
+    "category": "pull",
+    "primary_muscle": "lats",
+    "secondary_muscles": ["biceps", "upper_back", "rear_delt"],
+    "equipment": ["lat_pulldown_machine"],
+    "movement_pattern": "vertical_pull",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "chest_supported_row": {
+    "name": "Chest Supported Row",
+    "category": "pull",
+    "primary_muscle": "upper_back",
+    "secondary_muscles": ["lats", "rear_delt", "biceps", "rhomboids"],
+    "equipment": ["dumbbells", "incline_bench"],
+    "movement_pattern": "horizontal_pull",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "seated_cable_row": {
+    "name": "Seated Cable Row",
+    "category": "pull",
+    "primary_muscle": "upper_back",
+    "secondary_muscles": ["lats", "rear_delt", "biceps", "rhomboids"],
+    "equipment": ["cable_machine"],
+    "movement_pattern": "horizontal_pull",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "single_arm_dumbbell_row": {
+    "name": "Single Arm Dumbbell Row",
+    "category": "pull",
+    "primary_muscle": "lats",
+    "secondary_muscles": ["upper_back", "rear_delt", "biceps"],
+    "equipment": ["dumbbell", "bench"],
+    "movement_pattern": "horizontal_pull",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "barbell_row": {
+    "name": "Barbell Row",
+    "category": "pull",
+    "primary_muscle": "upper_back",
+    "secondary_muscles": ["lats", "rear_delt", "biceps", "rhomboids", "lower_back"],
+    "equipment": ["barbell"],
+    "movement_pattern": "horizontal_pull",
+    "knee_friendly": true,
+    "difficulty": "advanced"
+  },
+  "t_bar_row": {
+    "name": "T-Bar Row",
+    "category": "pull",
+    "primary_muscle": "upper_back",
+    "secondary_muscles": ["lats", "rear_delt", "biceps"],
+    "equipment": ["t_bar_machine", "barbell_landmine"],
+    "movement_pattern": "horizontal_pull",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "bicep_curl": {
+    "name": "Bicep Curl",
+    "category": "pull",
+    "primary_muscle": "biceps",
+    "secondary_muscles": ["forearms"],
+    "equipment": ["dumbbells", "barbell", "cable_machine"],
+    "movement_pattern": "elbow_flexion",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "hammer_curl": {
+    "name": "Hammer Curl",
+    "category": "pull",
+    "primary_muscle": "biceps",
+    "secondary_muscles": ["forearms", "brachialis"],
+    "equipment": ["dumbbells"],
+    "movement_pattern": "elbow_flexion",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "preacher_curl": {
+    "name": "Preacher Curl",
+    "category": "pull",
+    "primary_muscle": "biceps",
+    "secondary_muscles": ["forearms"],
+    "equipment": ["preacher_bench", "dumbbells", "ez_bar"],
+    "movement_pattern": "elbow_flexion",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "tricep_pushdown": {
+    "name": "Tricep Pushdown",
+    "category": "push",
+    "primary_muscle": "triceps",
+    "secondary_muscles": [],
+    "equipment": ["cable_machine"],
+    "movement_pattern": "elbow_extension",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "overhead_tricep_extension": {
+    "name": "Overhead Tricep Extension",
+    "category": "push",
+    "primary_muscle": "triceps",
+    "secondary_muscles": [],
+    "equipment": ["dumbbell", "cable_machine", "ez_bar"],
+    "movement_pattern": "elbow_extension",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "skull_crusher": {
+    "name": "Skull Crusher",
+    "category": "push",
+    "primary_muscle": "triceps",
+    "secondary_muscles": [],
+    "equipment": ["ez_bar", "dumbbells", "barbell"],
+    "movement_pattern": "elbow_extension",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "hip_thrust": {
+    "name": "Hip Thrust",
+    "category": "legs",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["hamstrings", "quads"],
+    "equipment": ["barbell", "bench"],
+    "movement_pattern": "hip_hinge",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "rdl": {
+    "name": "Romanian Deadlift",
+    "category": "legs",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["glutes", "lower_back"],
+    "equipment": ["barbell", "dumbbells"],
+    "movement_pattern": "hip_hinge",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "single_leg_rdl": {
+    "name": "Single Leg RDL",
+    "category": "legs",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["glutes", "core"],
+    "equipment": ["dumbbell", "kettlebell"],
+    "movement_pattern": "hip_hinge",
+    "knee_friendly": true,
+    "difficulty": "advanced"
+  },
+  "glute_bridge": {
+    "name": "Glute Bridge",
+    "category": "legs",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["hamstrings"],
+    "equipment": ["bodyweight", "barbell", "band"],
+    "movement_pattern": "hip_hinge",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "cable_pull_through": {
+    "name": "Cable Pull Through",
+    "category": "legs",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["hamstrings"],
+    "equipment": ["cable_machine"],
+    "movement_pattern": "hip_hinge",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "back_extension": {
+    "name": "Back Extension",
+    "category": "legs",
+    "primary_muscle": "lower_back",
+    "secondary_muscles": ["glutes", "hamstrings"],
+    "equipment": ["back_extension_bench", "glute_ham_raise"],
+    "movement_pattern": "hip_hinge",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "hip_abduction": {
+    "name": "Hip Abduction",
+    "category": "legs",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["tfl"],
+    "equipment": ["machine", "cable", "band"],
+    "movement_pattern": "hip_abduction",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "clamshell": {
+    "name": "Clamshell",
+    "category": "legs",
+    "primary_muscle": "glutes",
+    "secondary_muscles": [],
+    "equipment": ["band", "bodyweight"],
+    "movement_pattern": "hip_external_rotation",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "side_lying_leg_raise": {
+    "name": "Side Lying Leg Raise",
+    "category": "legs",
+    "primary_muscle": "glutes",
+    "secondary_muscles": [],
+    "equipment": ["bodyweight", "ankle_weight"],
+    "movement_pattern": "hip_abduction",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "glute_kickback": {
+    "name": "Glute Kickback",
+    "category": "legs",
+    "primary_muscle": "glutes",
+    "secondary_muscles": ["hamstrings"],
+    "equipment": ["cable_machine", "machine", "band"],
+    "movement_pattern": "hip_extension",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "goblet_squat_limited_rom": {
+    "name": "Goblet Squat (Limited ROM)",
+    "category": "legs",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes", "core"],
+    "equipment": ["dumbbell", "kettlebell"],
+    "movement_pattern": "knee_dominant",
+    "knee_friendly": true,
+    "difficulty": "beginner",
+    "notes": "Limit depth to 90° or pain-free range"
+  },
+  "wall_sit": {
+    "name": "Wall Sit",
+    "category": "legs",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes"],
+    "equipment": ["wall"],
+    "movement_pattern": "isometric_knee",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "spanish_squat": {
+    "name": "Spanish Squat",
+    "category": "legs",
+    "primary_muscle": "quads",
+    "secondary_muscles": [],
+    "equipment": ["band", "anchor"],
+    "movement_pattern": "isometric_knee",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "leg_curl": {
+    "name": "Leg Curl",
+    "category": "legs",
+    "primary_muscle": "hamstrings",
+    "secondary_muscles": ["calves"],
+    "equipment": ["leg_curl_machine", "band"],
+    "movement_pattern": "knee_flexion",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "calf_raise": {
+    "name": "Calf Raise",
+    "category": "legs",
+    "primary_muscle": "calves",
+    "secondary_muscles": [],
+    "equipment": ["machine", "dumbbells", "bodyweight"],
+    "movement_pattern": "plantar_flexion",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "seated_calf_raise": {
+    "name": "Seated Calf Raise",
+    "category": "legs",
+    "primary_muscle": "calves",
+    "secondary_muscles": [],
+    "equipment": ["machine", "dumbbells_on_knees"],
+    "movement_pattern": "plantar_flexion",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "plank": {
+    "name": "Plank",
+    "category": "core",
+    "primary_muscle": "abs",
+    "secondary_muscles": ["obliques", "lower_back"],
+    "equipment": ["bodyweight"],
+    "movement_pattern": "anti_extension",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "side_plank": {
+    "name": "Side Plank",
+    "category": "core",
+    "primary_muscle": "obliques",
+    "secondary_muscles": ["abs", "glutes"],
+    "equipment": ["bodyweight"],
+    "movement_pattern": "anti_lateral_flexion",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "dead_bug": {
+    "name": "Dead Bug",
+    "category": "core",
+    "primary_muscle": "abs",
+    "secondary_muscles": ["hip_flexors"],
+    "equipment": ["bodyweight"],
+    "movement_pattern": "anti_extension",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "bird_dog": {
+    "name": "Bird Dog",
+    "category": "core",
+    "primary_muscle": "abs",
+    "secondary_muscles": ["lower_back", "glutes"],
+    "equipment": ["bodyweight"],
+    "movement_pattern": "anti_rotation",
+    "knee_friendly": true,
+    "difficulty": "beginner"
+  },
+  "hanging_leg_raise": {
+    "name": "Hanging Leg Raise",
+    "category": "core",
+    "primary_muscle": "abs",
+    "secondary_muscles": ["hip_flexors"],
+    "equipment": ["pullup_bar"],
+    "movement_pattern": "spinal_flexion",
+    "knee_friendly": true,
+    "difficulty": "advanced"
+  },
+  "russian_twist": {
+    "name": "Russian Twist",
+    "category": "core",
+    "primary_muscle": "obliques",
+    "secondary_muscles": ["abs"],
+    "equipment": ["medicine_ball", "dumbbell", "bodyweight"],
+    "movement_pattern": "rotation",
+    "knee_friendly": true,
+    "difficulty": "intermediate"
+  },
+  "bulgarian_split_squat": {
+    "name": "Bulgarian Split Squat",
+    "category": "legs",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes", "hamstrings"],
+    "equipment": ["dumbbells", "bench"],
+    "movement_pattern": "unilateral_knee_dominant",
+    "knee_friendly": false,
+    "contraindications": ["knee_issues"],
+    "alternatives": ["hip_thrust", "rdl", "glute_bridge", "goblet_squat_limited_rom"]
+  },
+  "walking_lunge": {
+    "name": "Walking Lunge",
+    "category": "legs",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes", "hamstrings"],
+    "equipment": ["dumbbells", "bodyweight"],
+    "movement_pattern": "unilateral_knee_dominant",
+    "knee_friendly": false,
+    "contraindications": ["knee_issues"],
+    "alternatives": ["hip_thrust", "rdl", "glute_bridge"]
+  },
+  "reverse_lunge": {
+    "name": "Reverse Lunge",
+    "category": "legs",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes", "hamstrings"],
+    "equipment": ["dumbbells", "bodyweight"],
+    "movement_pattern": "unilateral_knee_dominant",
+    "knee_friendly": false,
+    "contraindications": ["knee_issues"],
+    "alternatives": ["hip_thrust", "rdl", "glute_bridge"]
+  },
+  "step_up": {
+    "name": "Step Up",
+    "category": "legs",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes"],
+    "equipment": ["box", "bench", "dumbbells"],
+    "movement_pattern": "unilateral_knee_dominant",
+    "knee_friendly": false,
+    "contraindications": ["knee_issues"],
+    "alternatives": ["hip_thrust", "rdl", "glute_bridge"]
+  },
+  "leg_press": {
+    "name": "Leg Press",
+    "category": "legs",
+    "primary_muscle": "quads",
+    "secondary_muscles": ["glutes", "hamstrings"],
+    "equipment": ["leg_press_machine"],
+    "movement_pattern": "knee_dominant",
+    "knee_friendly": false,
+    "contraindications": ["knee_issues"],
+    "alternatives": ["hip_thrust", "rdl", "goblet_squat_limited_rom"]
+  },
+  "leg_extension": {
+    "name": "Leg Extension",
+    "category": "legs",
+    "primary_muscle": "quads",
+    "secondary_muscles": [],
+    "equipment": ["leg_extension_machine"],
+    "movement_pattern": "knee_extension",
+    "knee_friendly": false,
+    "contraindications": ["knee_issues"],
+    "alternatives": ["spanish_squat", "wall_sit", "goblet_squat_limited_rom"]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-10-10T06:30:00Z",
+  "basics": {
+    "age": 32,
+    "height_cm": 178,
+    "weight_kg": 75.2,
+    "body_fat_pct": 14,
+    "gender": "male"
+  },
+  "medical_history": {
+    "knee_issues": {
+      "condition": "patellofemoral pain syndrome",
+      "severity": "mild",
+      "affected_side": "right",
+      "contraindicated_exercises": [
+        "deep_squats", "lunges", "leg_press_heavy", "box_jumps",
+        "running_downhill", "knee_extension_machine"
+      ],
+      "notes": "Avoid >90° knee flexion under load. Focus on hip-dominant movements."
+    },
+    "other": []
+  },
+  "goals": {
+    "primary": "hypertrophy_strength",
+    "secondary": "endurance_maintenance",
+    "target_weight_kg": 78,
+    "target_body_fat_pct": 12,
+    "timeline_weeks": 16
+  },
+  "preferences": {
+    "workout_days": 6,
+    "session_duration_min": 75,
+    "equipment_access": "full_gym",
+    "cardio_preference": "running",
+    "rest_day": "sunday"
+  }
+}
