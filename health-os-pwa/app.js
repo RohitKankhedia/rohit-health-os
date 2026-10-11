@@ -79,33 +79,18 @@
     // Back
     lats: { label: 'Lats', paths: ['lats'] },
     upper_back: { label: 'Upper Back', paths: ['upper_back'] },
+    lower_back: { label: 'Lower Back', paths: ['lower_back'] },
     
     // Arms
     left_bicep: { label: 'Left Bicep', paths: ['left_bicep'] },
     left_forearm: { label: 'Left Forearm', paths: ['left_forearm'] },
     right_bicep: { label: 'Right Bicep', paths: ['right_bicep'] },
     right_forearm: { label: 'Right Forearm', paths: ['right_forearm'] },
-    biceps: { label: 'Biceps', paths: ['biceps'] },
-    triceps: { label: 'Triceps', paths: ['triceps'] },
-    forearms: { label: 'Forearms', paths: ['forearms'] },
-    
-    // Chest
-    chest: { label: 'Chest', paths: ['chest'] },
-    
-    // Back
-    lats: { label: 'Lats', paths: ['lats'] },
-    upper_back: { label: 'Upper Back', paths: ['upper_back'] },
-    
-    // Arms (additional)
-    biceps: { label: 'Biceps', paths: ['biceps'] },
-    triceps: { label: 'Triceps', paths: ['triceps'] },
-    forearms: { label: 'Forearms', paths: ['forearms'] },
     
     // Core
     abs: { label: 'Abs', paths: ['abs'] },
     left_oblique: { label: 'Left Oblique', paths: ['left_oblique'] },
     right_oblique: { label: 'Right Oblique', paths: ['right_oblique'] },
-    lower_back: { label: 'Lower Back', paths: ['lower_back'] },
     
     // Legs
     glutes: { label: 'Glutes', paths: ['glutes'] },
@@ -115,12 +100,42 @@
     right_hamstring: { label: 'Right Hamstring', paths: ['right_hamstring'] },
     left_calf: { label: 'Left Calf', paths: ['left_calf'] },
     right_calf: { label: 'Right Calf', paths: ['right_calf'] },
-    quads: { label: 'Quads', paths: ['quads'] },
-    hamstrings: { label: 'Hamstrings', paths: ['hamstrings'] },
-    calves: { label: 'Calves', paths: ['calves'] },
+    left_shin: { label: 'Left Shin', paths: ['left_shin'] },
+    right_shin: { label: 'Right Shin', paths: ['right_shin'] },
+    left_foot: { label: 'Left Foot', paths: ['left_foot'] },
+    right_foot: { label: 'Right Foot', paths: ['right_foot'] },
     
-    // Additional
+    // Additional muscle groups (grouped)
+    front_delt: { label: 'Front Delts', paths: ['front_delt'] },
+    side_delt: { label: 'Side Delts', paths: ['side_delt'] },
+    rear_delt: { label: 'Rear Delts', paths: ['rear_delt'] },
+    biceps: { label: 'Biceps', paths: ['left_bicep', 'right_bicep'] },
+    triceps: { label: 'Triceps', paths: ['triceps'] },
+    forearms: { label: 'Forearms', paths: ['left_forearm', 'right_forearm', 'forearms'] },
     glutes: { label: 'Glutes', paths: ['glutes'] },
+    left_quad: { label: 'Left Quad', paths: ['left_quad'] },
+    right_quad: { label: 'Right Quad', paths: ['right_quad'] },
+    left_hamstring: { label: 'Left Hamstring', paths: ['left_hamstring'] },
+    right_hamstring: { label: 'Right Hamstring', paths: ['right_hamstring'] },
+    left_calf: { label: 'Left Calf', paths: ['left_calf'] },
+    right_calf: { label: 'Right Calf', paths: ['right_calf'] },
+    left_shin: { label: 'Left Shin', paths: ['left_shin'] },
+    right_shin: { label: 'Right Shin', paths: ['right_shin'] },
+    left_foot: { label: 'Left Foot', paths: ['left_foot'] },
+    right_foot: { label: 'Right Foot', paths: ['right_foot'] },
+    left_hamstring: { label: 'Left Hamstring', paths: ['left_hamstring'] },
+    right_hamstring: { label: 'Right Hamstring', paths: ['right_hamstring'] },
+    left_calf: { label: 'Left Calf', paths: ['left_calf'] },
+    right_calf: { label: 'Right Calf', paths: ['right_calf'] },
+    left_shin: { label: 'Left Shin', paths: ['left_shin'] },
+    right_shin: { label: 'Right Shin', paths: ['right_shin'] },
+    left_foot: { label: 'Left Foot', paths: ['left_foot'] },
+    right_foot: { label: 'Right Foot', paths: ['right_foot'] },
+    quads: { label: 'Quads', paths: ['left_quad', 'right_quad'] },
+    hamstrings: { label: 'Hamstrings', paths: ['left_hamstring', 'right_hamstring'] },
+    calves: { label: 'Calves', paths: ['left_calf', 'right_calf'] },
+    shins: { label: 'Shins', paths: ['left_shin', 'right_shin'] },
+    feet: { label: 'Feet', paths: ['left_foot', 'right_foot'] },
     lower_back: { label: 'Lower Back', paths: ['lower_back'] }
   };
 
@@ -574,57 +589,116 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
   }
 
   function renderBodyMapMini() {
-    const status = computeMuscleStatus();
-    const svg = els.bodyMapSVG;
-    svg.innerHTML = '';
-    
-    Object.entries(BODY_MAP_PATHS).forEach(([muscle, path]) => {
-      const muscleState = status[muscle] || 'rested';
-      const color = RECOVERY_COLORS[muscleState] || RECOVERY_COLORS.rested;
-      
-      const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      pathEl.setAttribute('d', path);
-      pathEl.setAttribute('fill', color);
-      pathEl.setAttribute('opacity', '0.6');
-      pathEl.setAttribute('stroke', color);
-      pathEl.setAttribute('stroke-width', '1');
-      pathEl.style.filter = `drop-shadow(0 0 8px ${color})`;
-      pathEl.dataset.muscle = muscle;
-      pathEl.dataset.state = muscleState;
-      svg.appendChild(pathEl);
-    });
+    render3DBodyMap('body3dModelMini', true);
   }
 
   function renderBodyMapFull() {
+    render3DBodyMap('body3dModelFull', false);
+    renderBodyMapLegend();
+  }
+
+  // 3D Body Map Generation
+  function render3DBodyMap(containerId, isMini) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
     const status = computeMuscleStatus();
-    const svg = els.bodyMapFull;
-    const legend = els.bodyMapLegend;
+    const layers = generateBodyLayers(status);
     
-    svg.innerHTML = '';
-    legend.innerHTML = '';
+    let html = `
+      <div class="rotation-hint">Drag to rotate • Double-tap to reset</div>
+      <div class="body-3d-model" id="${containerId}-model">`;
     
-    // Render paths
-    Object.entries(BODY_MAP_PATHS).forEach(([muscle, path]) => {
+    // Front layer (closest to viewer)
+    html += `<div class="body-layer" style="transform: translateZ(50px);">${layers.front}</div>`;
+    // Middle layer
+    html += `<div class="body-layer" style="transform: translateZ(0px);">${layers.middle}</div>`;
+    // Back layer (farthest from viewer)
+    html += `<div class="body-layer" style="transform: translateZ(-50px);">${layers.back}</div>`;
+    
+    html += `</div>`;
+    
+    // Rotation controls
+    html += `
+      <div class="rotation-controls">
+        <button class="rotation-btn" data-action="rotate-left" aria-label="Rotate left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="rotation-btn" data-action="rotate-right" aria-label="Rotate right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M19 12l-7-7-7 7"/></svg>
+        </button>
+        <button class="rotation-btn" data-action="rotate-up" aria-label="Tilt up">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+        </button>
+        <button class="rotation-btn" data-action="rotate-down" aria-label="Tilt down">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <button class="rotation-btn" data-action="reset-view" aria-label="Reset view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+      </div>
+    `;
+    
+    document.getElementById(containerId).innerHTML = html;
+    
+    // Initialize 3D rotation
+    init3DRotation(containerId);
+  }
+
+  function generateBodyLayers(status) {
+    // Define which muscles go in which layer (front/middle/back)
+    const frontMuscles = ['chest', 'abs', 'left_quad', 'right_quad', 'left_bicep', 'right_bicep', 
+                          'left_forearm', 'right_forearm', 'left_shoulder', 'right_shoulder',
+                          'front_delt', 'side_delt', 'neck', 'left_calf', 'right_calf',
+                          'left_shin', 'right_shin', 'left_foot', 'right_foot'];
+    
+    const middleMuscles = ['lats', 'left_oblique', 'right_oblique', 'left_quad', 'right_quad',
+                          'left_hamstring', 'right_hamstring', 'glutes', 'left_calf', 'right_calf'];
+    
+    const backMuscles = ['lats', 'upper_back', 'lower_back', 'rear_delt', 'left_shoulder', 'right_shoulder',
+                        'left_hamstring', 'right_hamstring', 'glutes', 'left_calf', 'right_calf'];
+    
+    const layers = { front: '', middle: '', back: '' };
+    
+    // Generate SVG for each layer
+    layers.front = generateLayerSVG(frontMuscles, status, 50);
+    layers.middle = generateLayerSVG(middleMuscles, status, 0);
+    layers.back = generateLayerSVG(backMuscles, status, -50);
+    
+    return layers;
+  }
+
+  function generateLayerSVG(muscles, status, zOffset) {
+    let svgContent = '';
+    
+    muscles.forEach(muscle => {
+      const path = BODY_MAP_PATHS[muscle];
+      if (!path) return;
+      
       const muscleState = status[muscle] || 'rested';
       const color = RECOVERY_COLORS[muscleState] || RECOVERY_COLORS.rested;
       
-      const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      pathEl.setAttribute('d', path);
-      pathEl.setAttribute('fill', color);
-      pathEl.setAttribute('opacity', '0.7');
-      pathEl.setAttribute('stroke', color);
-      pathEl.setAttribute('stroke-width', '1.5');
-      pathEl.style.filter = `drop-shadow(0 0 12px ${color})`;
-      pathEl.dataset.muscle = muscle;
-      pathEl.dataset.state = muscleState;
-      
-      // Click handler
-      pathEl.addEventListener('click', () => showMuscleInfo(muscle, muscleState));
-      
-      svg.appendChild(pathEl);
+      svgContent += `
+        <g class="body-part ${muscleState}" data-muscle="${muscle}" data-state="${muscleState}" 
+           style="transform: translateZ(0);">
+          <path d="${path}" fill="${color}" opacity="0.7" stroke="${color}" stroke-width="1.5" 
+                style="filter: drop-shadow(0 0 8px ${color}); transition: fill 0.3s ease, opacity 0.3s ease;"
+                data-muscle="${muscle}" data-state="${muscleState}"/>
+        </g>
+      `;
     });
+    
+    return `
+      <svg viewBox="0 0 400 800" class="body-layer-svg" style="width: 100%; height: 100%; display: block;">
+        ${svgContent}
+      </svg>
+    `;
+  }
 
-    // Render legend
+  function renderBodyMapLegend() {
+    const legend = document.getElementById('bodyMapLegend');
+    if (!legend) return;
+    
     const states = [
       { key: 'trained_today', label: 'Trained Today' },
       { key: 'recovering', label: 'Recovering' },
@@ -634,14 +708,112 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
       { key: 'caution', label: '⚠️ Medical Caution' }
     ];
 
-    states.forEach(s => {
-      const item = document.createElement('div');
-      item.className = 'legend-item';
-      item.innerHTML = `
+    legend.innerHTML = states.map(s => `
+      <div class="legend-item">
         <span class="legend-color" style="background: ${RECOVERY_COLORS[s.key]}"></span>
         <span>${s.label}</span>
-      `;
-      legend.appendChild(item);
+      </div>
+    `).join('');
+  }
+
+  // 3D Rotation Logic
+  function init3DRotation(containerId) {
+    const container = document.getElementById(containerId);
+    const model = document.getElementById(`${containerId}-model`);
+    if (!container || !model) return;
+    
+    let rotateX = -15;
+    let rotateY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startRotateX = rotateX;
+    let startRotateY = rotateY;
+    let animationFrame = null;
+    
+    function updateTransform() {
+      const modelEl = document.getElementById(`${containerId}-model`);
+      if (modelEl) {
+        modelEl.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      }
+    }
+    
+    function animate() {
+      updateTransform();
+      animationFrame = requestAnimationFrame(animate);
+    }
+    animate();
+    
+    // Touch/mouse events
+    function startDrag(e) {
+      isDragging = true;
+      const touch = e.touches ? e.touches[0] : e;
+      startX = touch.clientX;
+      startY = touch.clientY;
+      startRotateX = rotateX;
+      startRotateY = rotateY;
+      document.body.style.userSelect = 'none';
+    }
+    
+    function drag(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      const touch = e.touches ? e.touches[0] : e;
+      const deltaX = touch.clientX - startX;
+      const deltaY = touch.clientY - startY;
+      
+      rotateY = startRotateY + deltaX * 0.5;
+      rotateX = Math.max(-60, Math.min(60, startRotateX - deltaY * 0.5));
+      updateTransform();
+    }
+    
+    function endDrag() {
+      isDragging = false;
+      document.body.style.userSelect = '';
+    }
+    
+    // Touch events
+    document.getElementById(containerId).addEventListener('touchstart', startDrag, { passive: false });
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchend', endDrag);
+    
+    // Mouse events
+    document.getElementById(containerId).addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('mouseleave', endDrag);
+    
+    // Rotation control buttons
+    const container = document.getElementById(containerId);
+    const buttons = container.querySelectorAll('.rotation-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const action = btn.dataset.action;
+        switch (action) {
+          case 'rotate-left': rotateY -= 30; break;
+          case 'rotate-right': rotateY += 30; break;
+          case 'rotate-up': rotateX = Math.max(-60, rotateX - 15); break;
+          case 'rotate-down': rotateX = Math.min(60, rotateX + 15); break;
+          case 'reset-view':
+            rotateX = -15;
+            rotateY = 0;
+            break;
+        }
+        updateTransform();
+      });
+    });
+    
+    // Double tap to reset
+    let lastTap = 0;
+    document.getElementById(containerId).addEventListener('touchend', (e) => {
+      const now = Date.now();
+      if (now - lastTap < 300) {
+        rotateX = -15;
+        rotateY = 0;
+        updateTransform();
+      }
+      lastTap = now;
     });
   }
 
