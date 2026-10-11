@@ -330,13 +330,13 @@
 
   function renderAll() {
     debugLog('renderAll called');
-    renderTodayWorkout();
-    renderMetrics();
-    renderBodyMapMini();
-    renderContentMetrics();
-    renderSchedule();
-    renderHealth();
-    renderMedicalNotes();
+    try { renderTodayWorkout(); } catch (e) { debugLog('renderTodayWorkout error:', e.message); }
+    try { renderMetrics(); } catch (e) { debugLog('renderMetrics error:', e.message); }
+    try { renderBodyMapMini(); } catch (e) { debugLog('renderBodyMapMini error:', e.message); }
+    try { renderContentMetrics(); } catch (e) { debugLog('renderContentMetrics error:', e.message); }
+    try { renderSchedule(); } catch (e) { debugLog('renderSchedule error:', e.message); }
+    try { renderHealth(); } catch (e) { debugLog('renderHealth error:', e.message); }
+    try { renderMedicalNotes(); } catch (e) { debugLog('renderMedicalNotes error:', e.message); }
     debugLog('renderAll completed');
   }
 
