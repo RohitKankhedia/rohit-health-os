@@ -157,8 +157,11 @@
     
     setupEventListeners();
     updateDate();
+    debugLog('About to loadAllData');
     await loadAllData();
+    debugLog('loadAllData returned, calling renderAll');
     renderAll();
+    debugLog('renderAll returned');
     startAutoRefresh();
   }
 
@@ -317,7 +320,20 @@
     renderMedicalNotes();
   }
 
+  function renderAll() {
+    debugLog('renderAll called');
+    renderTodayWorkout();
+    renderMetrics();
+    renderBodyMapMini();
+    renderContentMetrics();
+    renderSchedule();
+    renderHealth();
+    renderMedicalNotes();
+    debugLog('renderAll completed');
+  }
+
   function renderTodayWorkout() {
+    debugLog('renderTodayWorkout called, state.schedule:', state.schedule ? 'SET' : 'NULL');
     if (!state.schedule) {
       // Debug: show fetch status instead of generic loading
       const debugInfo = state.debugLog.slice(-5).join('<br>') || 'No debug logs';
