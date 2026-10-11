@@ -28,7 +28,8 @@
   const CACHE_BUSTER = '?v=' + Date.now();
 
   // Debug logging
-  function debugLog(msg) {
+  function debugLog(...args) {
+    const msg = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
     const timestamp = new Date().toISOString().substr(11, 12);
     state.debugLog.push(`[${timestamp}] ${msg}`);
     if (state.debugLog.length > 50) state.debugLog.shift();
