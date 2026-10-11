@@ -27,6 +27,17 @@
   // Cache buster to force fresh fetches (bypasses localStorage cache)
   const CACHE_BUSTER = '?v=' + Date.now();
 
+  // Debug logging
+  function debugLog(msg) {
+    const timestamp = new Date().toISOString().substr(11, 12);
+    state.debugLog.push(`[${timestamp}] ${msg}`);
+    if (state.debugLog.length > 50) state.debugLog.shift();
+    console.log(msg);
+    if (els.debugPanel) {
+      els.debugPanel.innerHTML = state.debugLog.join('<br>');
+    }
+  }
+
   // Force SW update on load
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(regs => {
@@ -42,7 +53,8 @@
     profile: null,
     exercises: null,
     lastFetch: null,
-    online: false
+    online: false,
+    debugLog: []
   };
 
   // DOM Elements
@@ -66,7 +78,8 @@
     openBodyMap: document.getElementById('openBodyMap'),
     closeBodyMap: document.getElementById('closeBodyMap'),
     navItems: document.querySelectorAll('.nav-item'),
-    views: document.querySelectorAll('.view')
+    views: document.querySelectorAll('.view'),
+    debugPanel: null
   };
 
   // Muscle group mapping for body map
@@ -133,11 +146,32 @@
   // Initialize
   async function init() {
     localStorage.clear();  // Force fresh fetch since data is now available
+    
+    // Create debug panel
+    createDebugPanel();
+    
+    debugLog('App initialized');
+    
     setupEventListeners();
     updateDate();
     await loadAllData();
     renderAll();
     startAutoRefresh();
+  }
+
+  function createDebugPanel() {
+    const panel = document.createElement('div');
+    panel.id = 'debugPanel';
+    panel.style.cssText = `
+      position: fixed; bottom: 80px; left: 10px; right: 10px;
+      max-height: 200px; overflow-y: auto;
+      background: rgba(0,0,0,0.9); color: #0f0;
+      padding: 10px; font-family: monospace; font-size: 11px;
+      z-index: 9999; border-radius: 8px; border: 1px solid #0f0;
+    `;
+    panel.innerHTML = '<b>Debug Log:</b><br>App initialized...';
+    document.body.appendChild(panel);
+    els.debugPanel = panel;
   }
 
   function setupEventListeners() {
@@ -173,15 +207,17 @@
 
   // Data Loading
   async function loadAllData() {
-    await Promise.all([
-      loadSchedule(),
-      loadAnalytics(),
-      loadPublicMetrics(),
-      loadProfile(),
-      loadExercises()
-    ]);
+    const loads = [
+      loadSchedule().catch(e => { debugLog(`loadSchedule failed: ${e.message}`); return null; }),
+      loadAnalytics().catch(e => { debugLog(`loadAnalytics failed: ${e.message}`); return null; }),
+      loadPublicMetrics().catch(e => { debugLog(`loadPublicMetrics failed: ${e.message}`); return null; }),
+      loadProfile().catch(e => { debugLog(`loadProfile failed: ${e.message}`); return null; }),
+      loadExercises().catch(e => { debugLog(`loadExercises failed: ${e.message}`); return null; })
+    ];
+    await Promise.all(loads);
     state.lastFetch = Date.now();
     updateOnlineStatus(true);
+    debugLog('loadAllData completed');
   }
 
   async function fetchWithCache(key, url, cacheTime = 5 * 60 * 1000) {
@@ -193,25 +229,25 @@
     if (cached) {
       const { data, timestamp } = JSON.parse(cached);
       if (Date.now() - timestamp < cacheTime && data !== null) {
-        console.log(`[Cache HIT] ${key}: using cached data`);
+        debugLog(`[Cache HIT] ${key}: using cached data`);
         return data;
       }
     }
     // Fetch fresh with cache buster
     try {
-      console.log(`[Fetch] ${key}: ${bustedUrl}`);
+      debugLog(`[Fetch] ${key}: ${bustedUrl}`);
       const response = await fetch(bustedUrl);
-      console.log(`[Fetch] ${key}: status ${response.status}`);
+      debugLog(`[Fetch] ${key}: status ${response.status}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
-      console.log(`[Fetch] ${key}: data received`, data ? 'OK' : 'NULL');
+      debugLog(`[Fetch] ${key}: data received ${data ? 'OK' : 'NULL'}`);
       // Only cache non-null data
       if (data !== null) {
         localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }));
       }
       return data;
     } catch (err) {
-      console.warn(`[Fetch ERROR] ${key}:`, err);
+      debugLog(`[Fetch ERROR] ${key}: ${err.message}`);
       if (cached) return JSON.parse(cached).data;
       return null;
     }
@@ -281,7 +317,16 @@
   function renderTodayWorkout() {
     if (!state.schedule) {
       // Debug: show fetch status instead of generic loading
-      els.todayWorkout.innerHTML = '<div class="loading">Loading schedule... (check console for [Fetch] logs)</div>';
+      const debugInfo = state.debugLog.slice(-5).join('<br>') || 'No debug logs';
+      els.todayWorkout.innerHTML = `
+        <div class="loading">
+          Loading schedule... (check debug panel below)
+          <details style="margin-top:10px;font-size:11px;color:#888;">
+            <summary>Recent debug logs</summary>
+            ${debugInfo}
+          </details>
+        </div>
+      `;
       return;
     }
 
