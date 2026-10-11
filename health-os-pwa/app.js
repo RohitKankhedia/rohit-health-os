@@ -61,38 +61,25 @@
   // DOM Elements (queried in init, after DOM ready)
   let els = {};
 
-  // Muscle group mapping for body map
   const MUSCLE_GROUPS = {
-    // Neck
     neck: { label: 'Neck', paths: ['neck'] },
-    
-    // Shoulders
     left_shoulder: { label: 'Left Shoulder', paths: ['left_shoulder'] },
     right_shoulder: { label: 'Right Shoulder', paths: ['right_shoulder'] },
     front_delt: { label: 'Front Delts', paths: ['front_delt'] },
     side_delt: { label: 'Side Delts', paths: ['side_delt'] },
     rear_delt: { label: 'Rear Delts', paths: ['rear_delt'] },
-    
-    // Chest
     chest: { label: 'Chest', paths: ['chest'] },
-    
-    // Back
     lats: { label: 'Lats', paths: ['lats'] },
     upper_back: { label: 'Upper Back', paths: ['upper_back'] },
     lower_back: { label: 'Lower Back', paths: ['lower_back'] },
-    
-    // Arms
     left_bicep: { label: 'Left Bicep', paths: ['left_bicep'] },
     left_forearm: { label: 'Left Forearm', paths: ['left_forearm'] },
     right_bicep: { label: 'Right Bicep', paths: ['right_bicep'] },
     right_forearm: { label: 'Right Forearm', paths: ['right_forearm'] },
-    
-    // Core
+    triceps: { label: 'Triceps', paths: ['triceps'] },
     abs: { label: 'Abs', paths: ['abs'] },
     left_oblique: { label: 'Left Oblique', paths: ['left_oblique'] },
     right_oblique: { label: 'Right Oblique', paths: ['right_oblique'] },
-    
-    // Legs
     glutes: { label: 'Glutes', paths: ['glutes'] },
     left_quad: { label: 'Left Quad', paths: ['left_quad'] },
     right_quad: { label: 'Right Quad', paths: ['right_quad'] },
@@ -103,109 +90,41 @@
     left_shin: { label: 'Left Shin', paths: ['left_shin'] },
     right_shin: { label: 'Right Shin', paths: ['right_shin'] },
     left_foot: { label: 'Left Foot', paths: ['left_foot'] },
-    right_foot: { label: 'Right Foot', paths: ['right_foot'] },
-    
-    // Additional muscle groups (grouped)
-    front_delt: { label: 'Front Delts', paths: ['front_delt'] },
-    side_delt: { label: 'Side Delts', paths: ['side_delt'] },
-    rear_delt: { label: 'Rear Delts', paths: ['rear_delt'] },
-    biceps: { label: 'Biceps', paths: ['left_bicep', 'right_bicep'] },
-    triceps: { label: 'Triceps', paths: ['triceps'] },
-    forearms: { label: 'Forearms', paths: ['left_forearm', 'right_forearm', 'forearms'] },
-    glutes: { label: 'Glutes', paths: ['glutes'] },
-    left_quad: { label: 'Left Quad', paths: ['left_quad'] },
-    right_quad: { label: 'Right Quad', paths: ['right_quad'] },
-    left_hamstring: { label: 'Left Hamstring', paths: ['left_hamstring'] },
-    right_hamstring: { label: 'Right Hamstring', paths: ['right_hamstring'] },
-    left_calf: { label: 'Left Calf', paths: ['left_calf'] },
-    right_calf: { label: 'Right Calf', paths: ['right_calf'] },
-    left_shin: { label: 'Left Shin', paths: ['left_shin'] },
-    right_shin: { label: 'Right Shin', paths: ['right_shin'] },
-    left_foot: { label: 'Left Foot', paths: ['left_foot'] },
-    right_foot: { label: 'Right Foot', paths: ['right_foot'] },
-    left_hamstring: { label: 'Left Hamstring', paths: ['left_hamstring'] },
-    right_hamstring: { label: 'Right Hamstring', paths: ['right_hamstring'] },
-    left_calf: { label: 'Left Calf', paths: ['left_calf'] },
-    right_calf: { label: 'Right Calf', paths: ['right_calf'] },
-    left_shin: { label: 'Left Shin', paths: ['left_shin'] },
-    right_shin: { label: 'Right Shin', paths: ['right_shin'] },
-    left_foot: { label: 'Left Foot', paths: ['left_foot'] },
-    right_foot: { label: 'Right Foot', paths: ['right_foot'] },
-    quads: { label: 'Quads', paths: ['left_quad', 'right_quad'] },
-    hamstrings: { label: 'Hamstrings', paths: ['left_hamstring', 'right_hamstring'] },
-    calves: { label: 'Calves', paths: ['left_calf', 'right_calf'] },
-    shins: { label: 'Shins', paths: ['left_shin', 'right_shin'] },
-    feet: { label: 'Feet', paths: ['left_foot', 'right_foot'] },
-    lower_back: { label: 'Lower Back', paths: ['lower_back'] }
+    right_foot: { label: 'Right Foot', paths: ['right_foot'] }
   };
 
-  // Body map SVG paths (anatomical human body)
   const BODY_MAP_PATHS = {
-    // Neck
-    neck: 'M170,60 Q200,50 230,60 Q230,90 200,100 Q170,110 170,80 Z',
-    
-    // Shoulders
-    left_shoulder: 'M120,100 Q100,100 90,130 Q110,140 140,110 Q130,100 120,100 Z',
-    right_shoulder: 'M280,100 Q300,100 310,130 Q290,140 260,110 Q270,100 280,100 Z',
-    
-    // Chest
-    chest: 'M140,140 Q160,120 200,130 Q240,120 260,140 L260,220 Q240,240 200,230 Q160,240 140,220 Z',
-    
-    // Arms
-    left_bicep: 'M80,140 Q70,160 80,200 Q90,220 100,200 Q110,180 100,140 Z',
-    left_forearm: 'M80,200 Q70,220 80,260 Q90,280 100,260 Q110,240 100,140 Z',
-    right_bicep: 'M320,140 Q330,160 320,200 Q310,220 300,200 Q290,180 300,140 Z',
-    right_forearm: 'M320,200 Q330,220 320,260 Q310,280 300,260 Q290,240 300,140 Z',
-    
-    // Abs
-    abs: 'M160,230 Q170,220 190,230 Q210,240 200,260 Q180,270 170,260 Q150,270 140,260 Q120,250 130,230 Z',
-    
-    // Obliques
-    left_oblique: 'M120,230 Q100,240 110,280 Q130,290 150,260 Q140,240 120,230 Z',
-    right_oblique: 'M280,230 Q300,240 290,280 Q270,290 250,260 Q260,240 280,230 Z',
-    
-    // Glutes
-    glutes: 'M140,300 Q120,310 130,350 Q150,370 180,350 Q200,360 190,310 Q180,290 160,300 Z',
-    
-    // Quads
-    left_quad: 'M130,310 Q110,330 120,400 Q140,440 160,420 Q170,390 150,310 Z',
-    right_quad: 'M270,310 Q290,330 280,400 Q260,440 240,420 Q230,390 250,310 Z',
-    
-    // Hamstrings
-    left_hamstring: 'M130,400 Q110,430 120,500 Q140,540 160,520 Q170,490 150,400 Z',
-    right_hamstring: 'M270,400 Q290,430 280,500 Q260,540 240,520 Q230,490 250,400 Z',
-    
-    // Calves
-    left_calf: 'M130,500 Q110,530 120,580 Q140,620 160,600 Q170,570 150,500 Z',
-    right_calf: 'M270,500 Q290,530 280,580 Q260,620 240,600 Q230,570 250,500 Z',
-    
-    // Lower back
-    lower_back: 'M160,280 Q170,270 190,280 Q210,290 200,320 Q180,330 170,320 Q150,330 140,290 Q130,280 140,280 Z',
-    
-    // Delts (shoulders front/side)
-    front_delt: 'M140,120 Q160,100 200,110 Q240,100 260,120 L260,150 Q240,160 200,155 Q160,160 140,150 Z',
-    side_delt: 'M100,130 Q80,130 90,160 Q110,170 130,150 Q120,140 110,130 Z',
-    rear_delt: 'M260,130 Q280,130 270,160 Q250,170 230,150 Q240,140 250,130 Z',
-    
-    // Back muscles
-    lats: 'M80,160 Q60,200 70,300 Q100,340 140,320 Q160,300 160,240 Q150,200 130,180 Q100,170 80,160 Z',
-    upper_back: 'M160,140 Q180,130 200,140 Q220,130 240,140 L240,180 Q220,190 200,185 Q180,190 160,180 Z',
-    
-    // Arms (additional)
-    biceps: 'M80,180 Q70,220 90,280 Q110,320 130,280 Q130,240 110,200 Z',
-    triceps: 'M260,180 Q270,220 250,280 Q230,320 210,280 Q210,240 230,200 Z',
-    forearms: 'M70,280 Q60,320 80,380 Q100,420 120,380 Q120,340 100,300 Z',
-    
-    // Legs
-    glutes: 'M140,300 Q120,310 130,350 Q150,370 180,350 Q200,360 190,310 Q180,290 160,300 Z',
-    hamstrings: 'M130,400 Q110,430 120,500 Q140,540 160,520 Q170,490 150,400 Z',
-    quads: 'M130,310 Q110,330 120,400 Q140,440 160,420 Q170,390 150,310 Z',
-    calves: 'M130,500 Q110,530 120,580 Q140,620 160,600 Q170,570 150,500 Z',
-    
-    // Core
-    abs: 'M160,230 Q170,220 190,230 Q210,240 200,260 Q180,270 170,260 Q150,270 140,260 Q120,250 130,230 Z',
-    obliques: 'M120,230 Q100,240 110,280 Q130,290 150,260 Q140,240 120,230 Z',
-    lower_back: 'M160,280 Q170,270 190,280 Q210,290 200,320 Q180,330 170,320 Q150,330 140,290 Q130,280 140,280 Z'
+    neck: 'M170,55 Q200,45 230,55 Q230,95 200,105 Q170,115 170,75 Z',
+    left_shoulder: 'M110,100 Q90,100 80,135 Q100,150 135,115 Q125,100 110,100 Z',
+    right_shoulder: 'M290,100 Q310,100 320,135 Q300,150 265,115 Q275,100 290,100 Z',
+    chest: 'M135,135 Q160,115 200,125 Q240,115 265,135 L265,225 Q240,250 200,235 Q160,250 135,225 Z',
+    left_bicep: 'M70,140 Q60,165 70,210 Q85,235 100,210 Q110,185 95,140 Z',
+    right_bicep: 'M330,140 Q340,165 330,210 Q315,235 300,210 Q290,185 305,140 Z',
+    left_forearm: 'M65,210 Q55,235 65,280 Q80,305 95,280 Q105,255 90,210 Z',
+    right_forearm: 'M335,210 Q345,235 335,280 Q320,305 305,280 Q295,255 310,210 Z',
+    abs: 'M155,235 Q170,220 195,235 Q215,250 200,275 Q180,290 165,275 Q145,290 135,250 Q120,240 135,235 Z',
+    left_oblique: 'M115,235 Q95,250 105,295 Q125,315 150,280 Q140,255 115,235 Z',
+    right_oblique: 'M285,235 Q305,250 295,295 Q275,315 250,280 Q260,255 285,235 Z',
+    glutes: 'M135,305 Q110,320 125,365 Q150,390 185,365 Q210,380 200,320 Q190,295 165,305 Z',
+    left_quad: 'M120,320 Q100,345 110,420 Q135,470 165,445 Q180,410 160,320 Z',
+    right_quad: 'M280,320 Q300,345 290,420 Q265,470 235,445 Q220,410 240,320 Z',
+    left_hamstring: 'M115,420 Q95,455 105,530 Q130,580 160,550 Q175,510 155,420 Z',
+    right_hamstring: 'M285,420 Q305,455 295,530 Q270,580 240,550 Q225,510 245,420 Z',
+    left_calf: 'M110,530 Q90,565 100,620 Q125,665 155,635 Q170,595 150,530 Z',
+    right_calf: 'M290,530 Q310,565 300,620 Q275,665 245,635 Q230,595 250,530 Z',
+    left_shin: 'M100,620 Q85,650 95,700 Q115,740 140,710 Q150,675 135,620 Z',
+    right_shin: 'M300,620 Q315,650 305,700 Q285,740 260,710 Q250,675 265,620 Z',
+    left_foot: 'M90,700 Q75,725 85,760 Q110,790 145,765 Q155,740 140,700 Z',
+    right_foot: 'M310,700 Q325,725 315,760 Q290,790 255,765 Q245,740 260,700 Z',
+    lower_back: 'M155,285 Q170,270 195,285 Q215,300 200,330 Q180,345 165,330 Q145,345 135,300 Q120,290 135,285 Z',
+    front_delt: 'M130,115 Q155,95 200,105 Q245,95 270,115 L270,155 Q245,170 200,160 Q155,170 130,155 Z',
+    side_delt: 'M85,135 Q65,140 75,175 Q95,195 120,170 Q110,150 100,135 Z',
+    rear_delt: 'M315,135 Q335,140 325,175 Q305,195 280,170 Q290,150 300,135 Z',
+    lats: 'M70,165 Q45,210 55,320 Q90,365 140,340 Q165,315 160,250 Q150,205 125,180 Q95,170 70,165 Z',
+    upper_back: 'M155,145 Q180,130 200,145 Q220,130 245,145 L245,190 Q220,205 200,195 Q180,205 155,190 Z',
+    triceps: 'M255,185 Q265,230 250,295 Q230,340 205,295 Q200,250 220,200 Z',
+    biceps: 'M65,185 Q55,230 70,295 Q90,340 115,295 Q120,250 100,200 Z',
+    forearms: 'M60,295 Q50,340 70,405 Q95,455 125,410 Q130,365 110,315 Z'
   };
 
   // Recovery state colors
@@ -242,8 +161,8 @@
       avgRPE: document.getElementById('avgRPE'),
       ytSubs: document.getElementById('ytSubs'),
       liFollowers: document.getElementById('liFollowers'),
-      bodyMapSVG: document.getElementById('bodyMapSVG'),
-      bodyMapFull: document.getElementById('bodyMapFull'),
+      body3dMini: document.getElementById('body3dMini'),
+      body3dFull: document.getElementById('body3dFull'),
       bodyMapLegend: document.getElementById('bodyMapLegend'),
       scheduleGrid: document.getElementById('scheduleGrid'),
       healthGrid: document.getElementById('healthGrid'),
@@ -423,16 +342,6 @@
   }
 
   // Rendering
-  function renderAll() {
-    renderTodayWorkout();
-    renderMetrics();
-    renderBodyMapMini();
-    renderContentMetrics();
-    renderSchedule();
-    renderHealth();
-    renderMedicalNotes();
-  }
-
   function renderAll() {
     debugLog('renderAll called');
     try { renderTodayWorkout(); } catch (e) { debugLog('renderTodayWorkout error:', e.message); }
@@ -641,7 +550,11 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
     
     document.getElementById(containerId).innerHTML = html;
     
-    // Initialize 3D rotation
+    document.getElementById(containerId).addEventListener('click', (e) => {
+      const part = e.target.closest('[data-muscle]');
+      if (part) showMuscleInfo(part.dataset.muscle, part.dataset.state);
+    });
+
     init3DRotation(containerId);
   }
 
