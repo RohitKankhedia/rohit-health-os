@@ -357,14 +357,18 @@
       return;
     }
 
+    debugLog('renderTodayWorkout: getting today');
     const today = new Date().toLocaleLowerCase();
+    debugLog('renderTodayWorkout: today:', today);
     const dayData = state.schedule.days[today];
+    debugLog('renderTodayWorkout: dayData:', dayData ? 'SET' : 'NULL');
     
     if (!dayData) {
       els.todayWorkout.innerHTML = '<div class="loading">No data for today</div>';
       return;
     }
 
+    debugLog('renderTodayWorkout: dayData.focus:', dayData.focus);
     if (dayData.focus === 'rest') {
       els.todayWorkout.innerHTML = `
         <div class="workout-day rest">
@@ -386,6 +390,7 @@
       return;
     }
 
+    debugLog('renderTodayWorkout: building exercisesHtml');
     const exercisesHtml = (dayData.exercises || []).map(exKey => {
       const ex = state.exercises?.[exKey];
       const icon = getExerciseIcon(ex?.category);
@@ -401,6 +406,7 @@
       `;
     }).join('');
 
+    debugLog('renderTodayWorkout: setting innerHTML');
     els.todayWorkout.innerHTML = `
       <div class="workout-day ${dayData.focus}">
         <div class="workout-day-header">
@@ -410,6 +416,7 @@
         <div class="exercise-list">${exercisesHtml}</div>
       </div>
     `;
+    debugLog('renderTodayWorkout: completed');
   }
 
   function getExerciseIcon(category) {
