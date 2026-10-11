@@ -514,25 +514,13 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
   function render3DBodyMap(containerId, isMini) {
     const container = document.getElementById(containerId);
     if (!container) return;
-    
+
     const status = computeMuscleStatus();
-    const layers = generateBodyLayers(status);
-    
-    let html = `
+    const figure = generateHumanFigure(status);
+
+    const html = `
       <div class="rotation-hint">Drag to rotate • Double-tap to reset</div>
-      <div class="body-3d-model" id="${containerId}-model">`;
-    
-    // Front layer (closest to viewer)
-    html += `<div class="body-layer" style="transform: translateZ(50px);">${layers.front}</div>`;
-    // Middle layer
-    html += `<div class="body-layer" style="transform: translateZ(0px);">${layers.middle}</div>`;
-    // Back layer (farthest from viewer)
-    html += `<div class="body-layer" style="transform: translateZ(-50px);">${layers.back}</div>`;
-    
-    html += `</div>`;
-    
-    // Rotation controls
-    html += `
+      <div class="body-3d-model" id="${containerId}-model">${figure}</div>
       <div class="rotation-controls">
         <button class="rotation-btn" data-action="rotate-left" aria-label="Rotate left">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
@@ -551,10 +539,10 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
         </button>
       </div>
     `;
-    
-    document.getElementById(containerId).innerHTML = html;
-    
-    document.getElementById(containerId).addEventListener('click', (e) => {
+
+    container.innerHTML = html;
+
+    container.addEventListener('click', (e) => {
       const part = e.target.closest('[data-muscle]');
       if (part) showMuscleInfo(part.dataset.muscle, part.dataset.state);
     });
@@ -586,30 +574,95 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
   }
 
   function generateLayerSVG(muscles, status, zOffset) {
-    let svgContent = '';
-    
+    let muscleContent = '';
     muscles.forEach(muscle => {
       const path = BODY_MAP_PATHS[muscle];
       if (!path) return;
-      
       const muscleState = status[muscle] || 'rested';
       const color = RECOVERY_COLORS[muscleState] || RECOVERY_COLORS.rested;
-      
-      svgContent += `
-        <g class="body-part ${muscleState}" data-muscle="${muscle}" data-state="${muscleState}" 
-           style="transform: translateZ(0);">
-          <path d="${path}" fill="${color}" opacity="0.7" stroke="${color}" stroke-width="1.5" 
-                style="filter: drop-shadow(0 0 8px ${color}); transition: fill 0.3s ease, opacity 0.3s ease;"
-                data-muscle="${muscle}" data-state="${muscleState}"/>
-        </g>
-      `;
+      muscleContent += `<path d="${path}" fill="${color}" opacity="0.55" stroke="${color}" stroke-width="1.5" style="cursor: pointer; filter: drop-shadow(0 0 6px ${color}); transition: fill 0.3s, opacity 0.3s;" data-muscle="${muscle}" data-state="${muscleState}"/>`;
     });
-    
-    return `
-      <svg viewBox="0 0 400 800" class="body-layer-svg" style="width: 100%; height: 100%; display: block;">
-        ${svgContent}
-      </svg>
+    return `<svg viewBox="0 0 400 800" style="width: 100%; height: 100%; display: block;">${muscleContent}</svg>`;
+  }
+
+  function generateHumanFigure(status) {
+    const c = (state) => RECOVERY_COLORS[state] || RECOVERY_COLORS.rested;
+    const op = (state) => state === 'trained_today' ? '0.6' : state === 'rested' ? '0.25' : '0.45';
+
+    const headState = 'rested';
+    const bodyOutline = `<path d="M175,15 C175,8 185,2 200,2 C215,2 225,8 225,15 L228,40 C230,55 228,70 225,85 C222,100 218,115 215,130 L212,135 L188,135 L185,130 C182,115 178,100 175,85 C172,70 170,55 172,40 Z" fill="${c('rested')}" opacity="0.18" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.6" style="cursor: default;"/>`;
+
+    const torso = `<path d="M165,145 C160,170 158,200 160,230 C162,260 168,290 175,320 C180,345 185,370 190,395 L210,395 C215,370 220,345 225,320 C232,290 238,260 240,230 C242,200 240,170 235,145 C225,138 212,135 200,135 C188,135 175,138 165,145 Z" fill="${c('rested')}" opacity="0.15" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.5" style="cursor: default;"/>`;
+
+    const neck = `<path d="M185,105 L185,140 C185,148 192,152 200,152 C208,152 215,148 215,140 L215,105 C210,100 190,100 185,105 Z" fill="${c(status['neck'] || 'rested')}" opacity="${op(status['neck'])}" stroke="${c(status['neck'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="neck" data-state="${status['neck'] || 'rested'}"/>`;
+
+    const leftArm = `<path d="M160,150 C148,155 138,168 132,185 L125,210 C120,230 115,255 112,280 L108,310 C105,335 102,365 100,395 C99,415 102,430 108,440 C112,448 120,450 128,448 C135,445 140,438 142,428 C145,410 148,385 150,360 L152,330 C155,300 158,270 160,240 L162,210 C165,190 168,170 170,158 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
+
+    const rightArm = `<path d="M240,150 C252,155 262,168 268,185 L275,210 C280,230 285,255 288,280 L292,310 C295,335 298,365 300,395 C301,415 298,430 292,440 C288,448 280,450 272,448 C265,445 260,438 258,428 C255,410 252,385 250,360 L248,330 C245,300 242,270 240,240 L238,210 C235,190 232,170 230,158 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
+
+    const leftLeg = `<path d="M175,420 L172,460 C170,500 168,540 168,580 L168,620 C168,650 168,680 170,710 C171,730 175,745 182,752 C188,758 198,760 208,758 C215,755 220,748 222,738 C225,720 225,690 222,660 L220,620 C218,580 218,540 218,500 L215,460 L210,420 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
+
+    const rightLeg = `<path d="M225,420 L228,460 C230,500 232,540 232,580 L232,620 C232,650 232,680 230,710 C229,730 225,745 218,752 C212,758 202,760 192,758 C185,755 180,748 178,738 C175,720 175,690 178,660 L180,620 C182,580 182,540 182,500 L185,460 L190,420 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
+
+    const joints = `
+      <circle cx="128" cy="440" r="8" fill="${c('rested')}" opacity="0.3" stroke="${c('rested')}" stroke-width="1.5" style="cursor: default;"/>
+      <circle cx="272" cy="440" r="8" fill="${c('rested')}" opacity="0.3" stroke="${c('rested')}" stroke-width="1.5" style="cursor: default;"/>
+      <circle cx="200" cy="152" r="6" fill="${c('rested')}" opacity="0.3" stroke="${c('rested')}" stroke-width="1.5" style="cursor: default;"/>
+      <circle cx="200" cy="410" r="7" fill="${c('rested')}" opacity="0.3" stroke="${c('rested')}" stroke-width="1.5" style="cursor: default;"/>
+      <circle cx="193" cy="755" r="6" fill="${c('rested')}" opacity="0.3" stroke="${c('rested')}" stroke-width="1.5" style="cursor: default;"/>
+      <circle cx="207" cy="755" r="6" fill="${c('rested')}" opacity="0.3" stroke="${c('rested')}" stroke-width="1.5" style="cursor: default;"/>
     `;
+
+    const bicepL = `<path d="M128,175 C118,185 110,205 108,225 C106,245 108,265 112,280 C116,292 125,300 135,295 C142,290 145,278 145,262 L145,235 C145,215 142,195 135,182 C133,178 130,175 128,175 Z" fill="${c(status['left_bicep'] || 'rested')}" opacity="${op(status['left_bicep'])}" stroke="${c(status['left_bicep'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="left_bicep" data-state="${status['left_bicep'] || 'rested'}"/>`;
+    const bicepR = `<path d="M272,175 C282,185 290,205 292,225 C294,245 292,265 288,280 C284,292 275,300 265,295 C258,290 255,278 255,262 L255,235 C255,215 258,195 265,182 C267,178 270,175 272,175 Z" fill="${c(status['right_bicep'] || 'rested')}" opacity="${op(status['right_bicep'])}" stroke="${c(status['right_bicep'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="right_bicep" data-state="${status['right_bicep'] || 'rested'}"/>`;
+    const foreL = `<path d="M110,280 C105,295 102,320 102,345 L102,375 C102,395 105,415 112,430 C118,442 130,445 138,438 C144,432 145,420 145,405 L145,370 C145,345 142,318 138,295 C132,282 120,275 110,280 Z" fill="${c(status['left_forearm'] || 'rested')}" opacity="${op(status['left_forearm'])}" stroke="${c(status['left_forearm'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="left_forearm" data-state="${status['left_forearm'] || 'rested'}"/>`;
+    const foreR = `<path d="M290,280 C295,295 298,320 298,345 L298,375 C298,395 295,415 288,430 C282,442 270,445 262,438 C256,432 255,420 255,405 L255,370 C255,345 258,318 262,295 C268,282 280,275 290,280 Z" fill="${c(status['right_forearm'] || 'rested')}" opacity="${op(status['right_forearm'])}" stroke="${c(status['right_forearm'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="right_forearm" data-state="${status['right_forearm'] || 'rested'}"/>`;
+
+    const deltL = `<path d="M158,148 C145,145 132,150 122,162 C115,172 110,188 110,205 C110,222 115,238 125,248 C135,256 150,258 162,252 C172,246 178,235 178,220 L178,195 C178,178 172,158 158,148 Z" fill="${c(status['left_shoulder'] || 'rested')}" opacity="${op(status['left_shoulder'])}" stroke="${c(status['left_shoulder'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="left_shoulder" data-state="${status['left_shoulder'] || 'rested'}"/>`;
+    const deltR = `<path d="M242,148 C255,145 268,150 278,162 C285,172 290,188 290,205 C290,222 285,238 275,248 C265,256 250,258 238,252 C228,246 222,235 222,220 L222,195 C222,178 228,158 242,148 Z" fill="${c(status['right_shoulder'] || 'rested')}" opacity="${op(status['right_shoulder'])}" stroke="${c(status['right_shoulder'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="right_shoulder" data-state="${status['right_shoulder'] || 'rested'}"/>`;
+
+    const chest = `<path d="M165,165 C180,155 200,152 220,155 C235,160 245,172 248,190 C250,210 248,235 242,260 C236,282 225,295 210,298 C195,300 175,295 162,285 C152,272 148,255 148,235 C148,215 155,185 165,165 Z" fill="${c(status['chest'] || 'rested')}" opacity="${op(status['chest'])}" stroke="${c(status['chest'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="chest" data-state="${status['chest'] || 'rested'}"/>`;
+
+    const abs = `<path d="M170,305 C185,298 200,296 215,298 C228,302 238,312 240,328 L238,365 C236,390 230,408 218,415 C205,420 190,418 178,410 C168,402 162,390 162,372 L162,345 C162,328 165,315 170,305 Z" fill="${c(status['abs'] || 'rested')}" opacity="${op(status['abs'])}" stroke="${c(status['abs'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="abs" data-state="${status['abs'] || 'rested'}"/>`;
+
+    const obliqueL = `<path d="M158,310 C150,325 145,350 148,378 C150,405 158,425 172,438 C182,445 192,440 195,428 C197,415 192,395 185,375 C178,355 172,332 165,318 Z" fill="${c(status['left_oblique'] || 'rested')}" opacity="${op(status['left_oblique'])}" stroke="${c(status['left_oblique'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="left_oblique" data-state="${status['left_oblique'] || 'rested'}"/>`;
+    const obliqueR = `<path d="M242,310 C250,325 255,350 252,378 C250,405 242,425 228,438 C218,445 208,440 205,428 C203,415 208,395 215,375 C222,355 228,332 235,318 Z" fill="${c(status['right_oblique'] || 'rested')}" opacity="${op(status['right_oblique'])}" stroke="${c(status['right_oblique'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="right_oblique" data-state="${status['right_oblique'] || 'rested'}"/>`;
+
+    const quadL = `<path d="M165,430 C155,455 150,490 152,530 C154,570 158,605 165,635 C172,662 182,685 192,698 C200,708 210,710 218,705 C225,698 228,682 228,660 L225,620 C222,580 220,535 218,490 C216,455 212,430 205,420 C192,415 175,418 165,430 Z" fill="${c(status['left_quad'] || 'rested')}" opacity="${op(status['left_quad'])}" stroke="${c(status['left_quad'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="left_quad" data-state="${status['left_quad'] || 'rested'}"/>`;
+    const quadR = `<path d="M235,430 C245,455 250,490 248,530 C246,570 242,605 235,635 C228,662 218,685 208,698 C200,708 190,710 182,705 C175,698 172,682 172,660 L175,620 C178,580 180,535 182,490 C184,455 188,430 195,420 C208,415 225,418 235,430 Z" fill="${c(status['right_quad'] || 'rested')}" opacity="${op(status['right_quad'])}" stroke="${c(status['right_quad'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="right_quad" data-state="${status['right_quad'] || 'rested'}"/>`;
+
+    const hamL = `<path d="M172,580 C165,610 162,645 168,675 C172,700 182,718 195,725 C205,730 215,725 220,715 C225,702 225,680 222,655 C218,628 212,600 205,578 C195,565 182,568 172,580 Z" fill="${c(status['left_hamstring'] || 'rested')}" opacity="${op(status['left_hamstring'])}" stroke="${c(status['left_hamstring'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="left_hamstring" data-state="${status['left_hamstring'] || 'rested'}"/>`;
+    const hamR = `<path d="M228,580 C235,610 238,645 232,675 C228,700 218,718 205,725 C195,730 185,725 180,715 C175,702 175,680 178,655 C182,628 188,600 195,578 C205,565 218,568 228,580 Z" fill="${c(status['right_hamstring'] || 'rested')}" opacity="${op(status['right_hamstring'])}" stroke="${c(status['right_hamstring'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="right_hamstring" data-state="${status['right_hamstring'] || 'rested'}"/>`;
+
+    const calfL = `<path d="M172,690 C168,705 165,725 168,745 C170,762 178,775 188,780 C196,784 205,780 210,770 C214,758 215,742 212,725 C208,708 202,692 195,685 C188,678 178,680 172,690 Z" fill="${c(status['left_calf'] || 'rested')}" opacity="${op(status['left_calf'])}" stroke="${c(status['left_calf'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="left_calf" data-state="${status['left_calf'] || 'rested'}"/>`;
+    const calfR = `<path d="M228,690 C232,705 235,725 232,745 C230,762 222,775 212,780 C204,784 195,780 190,770 C186,758 185,742 188,725 C192,708 198,692 205,685 C212,678 222,680 228,690 Z" fill="${c(status['right_calf'] || 'rested')}" opacity="${op(status['right_calf'])}" stroke="${c(status['right_calf'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="right_calf" data-state="${status['right_calf'] || 'rested'}"/>`;
+
+    return `<svg viewBox="0 0 400 800" style="width: 100%; height: 100%; display: block;">
+      ${bodyOutline}
+      ${leftArm}
+      ${rightArm}
+      ${leftLeg}
+      ${rightLeg}
+      ${torso}
+      ${neck}
+      ${joints}
+      ${deltL}
+      ${deltR}
+      ${chest}
+      ${bicepL}
+      ${bicepR}
+      ${foreL}
+      ${foreR}
+      ${abs}
+      ${obliqueL}
+      ${obliqueR}
+      ${quadL}
+      ${quadR}
+      ${hamL}
+      ${hamR}
+      ${calfL}
+      ${calfR}
+    </svg>`;
   }
 
   function renderBodyMapLegend() {
