@@ -180,8 +180,12 @@
     
     debugLog('App initialized');
     
-    setupEventListeners();
-    updateDate();
+    // Set initial online status immediately
+    updateOnlineStatus(navigator.onLine);
+    debugLog('Initial online status:', navigator.onLine);
+    
+    try { setupEventListeners(); } catch (e) { debugLog('setupEventListeners error:', e.message); }
+    try { updateDate(); } catch (e) { debugLog('updateDate error:', e.message); }
     debugLog('About to loadAllData');
     await loadAllData();
     debugLog('loadAllData returned, calling renderAll');
