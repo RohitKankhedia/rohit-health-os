@@ -701,7 +701,6 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
     document.addEventListener('mouseleave', endDrag);
     
     // Rotation control buttons
-    const container = document.getElementById(containerId);
     const buttons = container.querySelectorAll('.rotation-btn');
     buttons.forEach(btn => {
       btn.addEventListener('click', (e) => {
