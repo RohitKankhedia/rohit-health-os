@@ -214,6 +214,7 @@
 
   // Data Loading
   async function loadAllData() {
+    debugLog('Starting loadAllData');
     const loads = [
       loadSchedule().catch(e => { debugLog(`loadSchedule failed: ${e.message}`); return null; }),
       loadAnalytics().catch(e => { debugLog(`loadAnalytics failed: ${e.message}`); return null; }),
@@ -224,7 +225,13 @@
     await Promise.all(loads);
     state.lastFetch = Date.now();
     updateOnlineStatus(true);
-    debugLog('loadAllData completed');
+    debugLog('loadAllData completed, state:', {
+      schedule: state.schedule ? 'SET' : 'NULL',
+      analytics: state.analytics ? 'SET' : 'NULL',
+      publicMetrics: state.publicMetrics ? 'SET' : 'NULL',
+      profile: state.profile ? 'SET' : 'NULL',
+      exercises: state.exercises ? 'SET' : 'NULL'
+    });
   }
 
   async function fetchWithCache(key, url, cacheTime = 5 * 60 * 1000) {
