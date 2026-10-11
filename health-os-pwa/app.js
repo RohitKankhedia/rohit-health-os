@@ -358,7 +358,7 @@
     }
 
     debugLog('renderTodayWorkout: getting today');
-    const today = new Date().toLocaleLowerCase();
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
     debugLog('renderTodayWorkout: today:', today);
     const dayData = state.schedule.days[today];
     debugLog('renderTodayWorkout: dayData:', dayData ? 'SET' : 'NULL');
@@ -464,7 +464,7 @@
       // Simple heuristic based on schedule
       let muscleState = 'rested';
       if (state.schedule) {
-        const today = new Date().toLocaleLowerCase();
+const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
         const dayData = state.schedule.days[today];
         if (dayData && dayData.target_muscles?.includes(muscle)) {
           muscleState = 'trained_today';
@@ -572,7 +572,7 @@
     }
 
     const dayOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-    const today = new Date().toLocaleLowerCase();
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
 
     els.scheduleGrid.innerHTML = dayOrder.map(day => {
       const dayData = state.schedule.days[day];
