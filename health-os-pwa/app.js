@@ -57,30 +57,8 @@
     debugLog: []
   };
 
-  // DOM Elements
-  const els = {
-    dataStatus: document.getElementById('dataStatus'),
-    todayDate: document.getElementById('todayDate'),
-    todayWorkout: document.getElementById('todayWorkout'),
-    weekWorkouts: document.getElementById('weekWorkouts'),
-    streakDays: document.getElementById('streakDays'),
-    runningKm: document.getElementById('runningKm'),
-    avgRPE: document.getElementById('avgRPE'),
-    ytSubs: document.getElementById('ytSubs'),
-    liFollowers: document.getElementById('liFollowers'),
-    bodyMapSVG: document.getElementById('bodyMapSVG'),
-    bodyMapFull: document.getElementById('bodyMapFull'),
-    bodyMapLegend: document.getElementById('bodyMapLegend'),
-    scheduleGrid: document.getElementById('scheduleGrid'),
-    healthGrid: document.getElementById('healthGrid'),
-    medicalNotes: document.getElementById('medicalNotes'),
-    refreshBtn: document.getElementById('refreshBtn'),
-    openBodyMap: document.getElementById('openBodyMap'),
-    closeBodyMap: document.getElementById('closeBodyMap'),
-    navItems: document.querySelectorAll('.nav-item'),
-    views: document.querySelectorAll('.view'),
-    debugPanel: null
-  };
+  // DOM Elements (queried in init, after DOM ready)
+  let els = {};
 
   // Muscle group mapping for body map
   const MUSCLE_GROUPS = {
@@ -146,6 +124,31 @@
   // Initialize
   async function init() {
     localStorage.clear();  // Force fresh fetch since data is now available
+    
+    // Query DOM elements (DOM is now ready)
+    els = {
+      dataStatus: document.getElementById('dataStatus'),
+      todayDate: document.getElementById('todayDate'),
+      todayWorkout: document.getElementById('todayWorkout'),
+      weekWorkouts: document.getElementById('weekWorkouts'),
+      streakDays: document.getElementById('streakDays'),
+      runningKm: document.getElementById('runningKm'),
+      avgRPE: document.getElementById('avgRPE'),
+      ytSubs: document.getElementById('ytSubs'),
+      liFollowers: document.getElementById('liFollowers'),
+      bodyMapSVG: document.getElementById('bodyMapSVG'),
+      bodyMapFull: document.getElementById('bodyMapFull'),
+      bodyMapLegend: document.getElementById('bodyMapLegend'),
+      scheduleGrid: document.getElementById('scheduleGrid'),
+      healthGrid: document.getElementById('healthGrid'),
+      medicalNotes: document.getElementById('medicalNotes'),
+      refreshBtn: document.getElementById('refreshBtn'),
+      openBodyMap: document.getElementById('openBodyMap'),
+      closeBodyMap: document.getElementById('closeBodyMap'),
+      navItems: document.querySelectorAll('.nav-item'),
+      views: document.querySelectorAll('.view'),
+      debugPanel: null
+    };
     
     // Create debug panel
     createDebugPanel();
