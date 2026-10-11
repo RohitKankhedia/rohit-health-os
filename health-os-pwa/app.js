@@ -600,9 +600,8 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
 
     const rightArm = `<path d="M240,150 C252,155 262,168 268,185 L275,210 C280,230 285,255 288,280 L292,310 C295,335 298,365 300,395 C301,415 298,430 292,440 C288,448 280,450 272,448 C265,445 260,438 258,428 C255,410 252,385 250,360 L248,330 C245,300 242,270 240,240 L238,210 C235,190 232,170 230,158 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
 
-    const leftLeg = `<path d="M175,420 L172,460 C170,500 168,540 168,580 L168,620 C168,650 168,680 170,710 C171,730 175,745 182,752 C188,758 198,760 208,758 C215,755 220,748 222,738 C225,720 225,690 222,660 L220,620 C218,580 218,540 218,500 L215,460 L210,420 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
-
-    const rightLeg = `<path d="M225,420 L228,460 C230,500 232,540 232,580 L232,620 C232,650 232,680 230,710 C229,730 225,745 218,752 C212,758 202,760 192,758 C185,755 180,748 178,738 C175,720 175,690 178,660 L180,620 C182,580 182,540 182,500 L185,460 L190,420 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
+    const leftLeg = `<path d="M155,420 L148,470 C145,520 142,570 142,620 L142,670 C142,710 145,745 155,760 C165,772 180,775 192,768 C202,762 208,748 210,730 C212,708 210,680 205,650 C200,615 195,575 192,535 C189,495 185,455 178,425 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
+    const rightLeg = `<path d="M245,420 L252,470 C255,520 258,570 258,620 L258,670 C258,710 255,745 245,760 C235,772 220,775 208,768 C198,762 192,748 190,730 C188,708 190,680 195,650 C200,615 205,575 208,535 C211,495 215,455 222,425 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
 
     const joints = `
       <circle cx="128" cy="440" r="8" fill="${c('rested')}" opacity="0.3" stroke="${c('rested')}" stroke-width="1.5" style="cursor: default;"/>
@@ -637,6 +636,38 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
     const calfL = `<path d="M172,690 C168,705 165,725 168,745 C170,762 178,775 188,780 C196,784 205,780 210,770 C214,758 215,742 212,725 C208,708 202,692 195,685 C188,678 178,680 172,690 Z" fill="${c(status['left_calf'] || 'rested')}" opacity="${op(status['left_calf'])}" stroke="${c(status['left_calf'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="left_calf" data-state="${status['left_calf'] || 'rested'}"/>`;
     const calfR = `<path d="M228,690 C232,705 235,725 232,745 C230,762 222,775 212,780 C204,784 195,780 190,770 C186,758 185,742 188,725 C192,708 198,692 205,685 C212,678 222,680 228,690 Z" fill="${c(status['right_calf'] || 'rested')}" opacity="${op(status['right_calf'])}" stroke="${c(status['right_calf'] || 'rested')}" stroke-width="1.5" style="cursor: pointer;" data-muscle="right_calf" data-state="${status['right_calf'] || 'rested'}"/>`;
 
+    const nerveSystem = `
+      <g style="pointer-events: none;">
+        <path d="M200,100 L200,750" stroke="#38bdf8" stroke-width="2" opacity="0.4" fill="none"/>
+        <path d="M200,150 L140,200 L110,280" stroke="#38bdf8" stroke-width="1.5" opacity="0.35" fill="none"/>
+        <path d="M200,150 L260,200 L290,280" stroke="#38bdf8" stroke-width="1.5" opacity="0.35" fill="none"/>
+        <path d="M200,250 L130,320 L100,400" stroke="#38bdf8" stroke-width="1.5" opacity="0.3" fill="none"/>
+        <path d="M200,250 L270,320 L300,400" stroke="#38bdf8" stroke-width="1.5" opacity="0.3" fill="none"/>
+        <path d="M200,350 L140,420 L130,550 L140,700" stroke="#38bdf8" stroke-width="1.5" opacity="0.3" fill="none"/>
+        <path d="M200,350 L260,420 L270,550 L260,700" stroke="#38bdf8" stroke-width="1.5" opacity="0.3" fill="none"/>
+        <circle cx="200" cy="100" r="4" fill="#38bdf8" opacity="0.5"/>
+        <circle cx="200" cy="150" r="3" fill="#38bdf8" opacity="0.4"/>
+        <circle cx="200" cy="250" r="3" fill="#38bdf8" opacity="0.4"/>
+        <circle cx="200" cy="350" r="3" fill="#38bdf8" opacity="0.4"/>
+        <circle cx="200" cy="450" r="3" fill="#38bdf8" opacity="0.35"/>
+        <circle cx="200" cy="550" r="3" fill="#38bdf8" opacity="0.3"/>
+        <circle cx="200" cy="650" r="3" fill="#38bdf8" opacity="0.3"/>
+      </g>
+    `;
+
+    const muscleFibers = `
+      <g style="pointer-events: none;">
+        <path d="M170,180 L185,220 L175,260" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
+        <path d="M230,180 L215,220 L225,260" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
+        <path d="M175,320 L185,360 L178,400" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+        <path d="M225,320 L215,360 L222,400" stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+        <path d="M155,480 L165,540 L158,600" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
+        <path d="M245,480 L235,540 L242,600" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
+        <path d="M160,620 L168,660 L162,700" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"/>
+        <path d="M240,620 L232,660 L238,700" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"/>
+      </g>
+    `;
+
     return `<svg viewBox="0 0 400 800" style="width: 100%; height: 100%; display: block;">
       ${bodyOutline}
       ${leftArm}
@@ -662,6 +693,8 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
       ${hamR}
       ${calfL}
       ${calfR}
+      ${muscleFibers}
+      ${nerveSystem}
     </svg>`;
   }
 
