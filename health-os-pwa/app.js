@@ -600,8 +600,8 @@ const today = new Date().toLocaleDateString('en-US', { weekday: 'long' }).toLowe
 
     const rightArm = `<path d="M240,150 C252,155 262,168 268,185 L275,210 C280,230 285,255 288,280 L292,310 C295,335 298,365 300,395 C301,415 298,430 292,440 C288,448 280,450 272,448 C265,445 260,438 258,428 C255,410 252,385 250,360 L248,330 C245,300 242,270 240,240 L238,210 C235,190 232,170 230,158 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
 
-    const leftLeg = `<path d="M155,420 L148,470 C145,520 142,570 142,620 L142,670 C142,710 145,745 155,760 C165,772 180,775 192,768 C202,762 208,748 210,730 C212,708 210,680 205,650 C200,615 195,575 192,535 C189,495 185,455 178,425 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
-    const rightLeg = `<path d="M245,420 L252,470 C255,520 258,570 258,620 L258,670 C258,710 255,745 245,760 C235,772 220,775 208,768 C198,762 192,748 190,730 C188,708 190,680 195,650 C200,615 205,575 208,535 C211,495 215,455 222,425 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
+    const leftLeg = `<path d="M150,425 L140,480 C136,530 133,575 133,620 L133,665 C133,700 137,735 148,752 C158,766 172,772 185,765 C195,760 200,748 201,732 C202,710 199,682 194,652 C189,618 184,578 181,538 C178,498 174,458 168,432 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
+    const rightLeg = `<path d="M250,425 L260,480 C264,530 267,575 267,620 L267,665 C267,700 263,735 252,752 C242,766 228,772 215,765 C205,760 200,748 199,732 C198,710 201,682 206,652 C211,618 216,578 219,538 C222,498 226,458 232,432 Z" fill="${c('rested')}" opacity="0.12" stroke="${c('rested')}" stroke-width="2" stroke-opacity="0.4" style="cursor: default;"/>`;
 
     const joints = `
       <circle cx="128" cy="440" r="8" fill="${c('rested')}" opacity="0.3" stroke="${c('rested')}" stroke-width="1.5" style="cursor: default;"/>
